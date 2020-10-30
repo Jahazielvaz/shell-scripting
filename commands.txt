@@ -4,8 +4,36 @@ SHELL RELATED
 - $ cat /etc/shells : Lists all the shells installed in your system
 - $ which bash : Tells you which shell is currently operational
 
+- $ clear : Will clear the shell
+
 SHELL SCRIPTING
 - Creating a bash script file (Note the .sh extension makes the file executable) : touch filename.sh
+- When writing a script, use #! at the beginning of the line. I believe it's convention.
+-Make sure you write the filepath for your bash shell. EXE: /bin/bash
 
 FILE SYSTEM COMMANDS
-- $ ls -al : This will tell you all the users associated with the target directory, and which permissions they have on the directory, such as read, write, execute, etc. 
+- s chmod +x file-name.txt : This command allows you to change permissions to a file. The plus sign tells it that you want to add a new permission, and then the letter or letters represent the types of permissions. r is read, w is write, x execute. 
+
+- $ ls -al : This will tell you all the users associated with the target directory, and which permissions they have on the directory, such as read, write, execute, etc.
+
+- $ ls -a : This will show me all files and directories within the target directory, including the hidden ones
+
+- $ cat file-name.txt : Will display the full content of your target file
+
+- $ nl file-name.txt : Almost like cat, but it adds line numbers to the left.
+
+- $ less file-name.txt : It views the file one page at a time, and as if you were actually opening it yourself. You exit with q. The advantage here is that you can exit out of it, and you won't be left with all that text in the terminal
+
+- $ head file-name.txt : It shows you the first 10 lines of a file.
+
+- $ tail file-name.txt : It shows you the last 10 lines of a file.
+
+
+
+- $ echo : Used to print text
+
+- $ pwd : Stands for print working directory. This will tell you the directory you're currently on.
+
+- $ rm directoryName : This will remove an empty directory
+
+- $ rm -r directoryName:  This will remove a directory recursively, or in other words, it'll remove it along with its' children including files and directories.
