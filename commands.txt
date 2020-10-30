@@ -1,0 +1,11 @@
+BASH COMMANDS
+
+SHELL RELATED
+- $ cat /etc/shells : Lists all the shells installed in your system
+- $ which bash : Tells you which shell is currently operational
+
+SHELL SCRIPTING
+- Creating a bash script file (Note the .sh extension makes the file executable) : touch filename.sh
+
+FILE SYSTEM COMMANDS
+- $ ls -al : This will tell you all the users associated with the target directory, and which permissions they have on the directory, such as read, write, execute, etc. 
