@@ -11,18 +11,81 @@ SHELL SCRIPTING
 - When writing a script, use #! at the beginning of the line. I believe it's convention.
 -Make sure you write the filepath for your bash shell. EXE: /bin/bash
 
+---------------------------------------
+PERMISSIONS AND OWNERSHIP
+
+UNDERSTANDING HOW TO READ PERMISSIONS, USERS AND GROUPS: The first thing you need to understand about permissions are the accounts. You have individual accounts (Root has all permissions by default) And those accounts belong to groups. Second thing you need to understand is how to read permissions for each directory and file.
+  The ls -l command will show the groups, users, and permissions associated with each file and directory within the current directory. This next part is vital to understand. You need to understand how to read this information. See example below.
+  EXAMPLE:
+  jazzy@kali: ~/Desktop/imagine-tech$ (You're currently in the imagine tech directory)
+  jazzy@kali: ~/Desktop/imagine-tech$ ls -l (You just ran this command. See what it shows, below this line)
+  drwxr-xr-- 1 jazzy jazzygroup target-directory (Read the EXPLANATION below to find out that this result shows)
+    EXPLANATION: First let's talk about what it shows all the way to the left (drwxr-xr--) These are the permissions. The very first character you see is a "d". That d is letting you know that you're dealing with a directory. If it was a file, it would have a "-" after that you're going to see 9 characters. It's actually 3 groups of 3 characters each. Let's go over what each character means. "r" stands for read. And the fact that it has that character, means that that particular user has the right to read that directory. "w" stands for write, and just like with read, it means that that particular user has the permission to write that directory. "x" means permission to execute. The order is always rwx. Any dash in any one character spot, means that that user does not have that specific permission. For example, if it had r--, it would mean that the current user is able to read the directory, but is not able to write or execute in that directory.
+    * Now you understand the value of each character. The next step is for you to understand what the 3 groups mean. The first 3 characters are the permissions for the user that currently owns that directory, which is the first username you find from left to right. In this example the "1" right after the characters tells you that one user is the owner of this directory, and the first 3 characters afte the d represent the rights that that user has. In the example above, "jazzy" is the owner, and he has permission to read write and execute. The second example represents permissions for the group or groups associated with this directory, which in this case is jazzygroup. jazzygroup in this example (r-x) has permission to read and execute, but not to write. The last 3 characters represemt everyone else, which means any user that's accessing that directory that doesn't belong to the listed groups or owner of the directory, in this example (r--) only has permission to read this directory. They would need to use sudo in order to supersede their permissions. So remember the first name you see is the user that owns that directory. The second name you see is the group, or groups.
+
+CHANGING OWNERSHIP FOR A FILE OR DIRECTORY: The command we use to change ownership is "chown". Below you'll learn how to operate this command to it's full potential.
+  - First, you should run the ls -l command so you can find the target file, as well as the users, groups etc. Find the target file or directory you wish to change. See example below.
+    EXAMPLE: jazzy@kali: ~/Desktop/imagine-tech$ ls -l
+    RESULT: drwxr-xr-- 1 jazzy jazzygroup my-directory
+  - So now you have your target directory which is "my-directory" in this example. Now see an example of how to use the full command, below, followed by the full explanation of how the command works.
+    EXAMPLE:
+    jazzy@kali: ~/Desktop/imagine-tech$ sudo chown -R tim:testgroup my-directory
+    EXPLANATION: In the command above, chown allows you to actually change the user and group that own the directory. NOTE: If you're changing the ownership of a directory, it is vital that you add the "-R" part of the command. The -R stands for recursive. This means that you're not only changing the ownership of the directory, but you're also changing the ownership to everything that's inside of the directory. c The first name you add after the chown command is the user that you wish to give ownership to. The name you add after the colon ":" is the name of the group that you want to give ownership to. You follow this by the name of the file or directory that you wish to change ownership to, which in this example is "my-directory". So to recap, in this example you would changing my-directory's ownership from the user "jazzy", and the group "jazzygroup", to the user "tim" and the group "testgroup"
+
+    CHANGING OWNERSHIP FOR JUST THE USER: Just don't include the color, or the groupname. See example below.
+      EXAMPLE:
+        jazzy@kali: ~/Desktop/imagine-tech$ sudo chown tim my-directory
+
+    CHANGING OWNERSHIP FOR JUST THE GROUP: Include the colon, followed by the group name, but don't include the username. See example Below.
+      EXAMPLE:
+        jazzy@kali: ~/Desktop/imagine-tech$ sudo chown :testgroup my-directory
+
+    CHANGING MULTIPLE DIRECTORIES: Simply put a space at the end of the directory you listed and add another directory name. Do that as many times as you need to. See example below.
+      EXAMPLE:
+        jazzy@kali: ~/Desktop/imagine-tech$ sudo chown tim:testgroup my-directory another-directory my-filename.txt
+        EXPLANATION: The command above would change ownership for my-directory, another-directory and my-filename.txt
+
+CHANGING PERMISSIONS FOR A SPECIFIC FILE OR DIRECTORY: For this you will use chmod. What you need to understand about this, is what the number values are for each permission group. See the example below of how to execute this command. See the explanation for what the command does, below the example.
+  NOTE: In the example below the owner (user) of the file "filename.txt" is jazzy, and the owner (group) of the file is jazzygroup.
+  EXAMPLE:
+    sudo chmod 753 filename.txt
+    EXPLANATION: In the example above, the chmod command changes the permissions. The 3 digits represent the owner (user) of the file, the owner (group) of the file, and everybody else. The integer from 0 to 7 represents the level of permission you're granting them. See the values below so you know know exactly how it works. That being said let me explain what exactly would happen in this command.
+      In this example you would grant permissions to the "filename.txt" file, as follows: jazzy would have rwx permission. jazzygroup would have r-x or in other words read and execute permission, but not write. Everyone else would have -wx or in other words write and execute permission, but not read.
+
+  VALUES: Read = 4, Write = 2, Execute = 1
+    EXPLANATION: In order to change the level of permission, you add the numbers up. For example if you wanted a user to have permission to read and execute, but not to write, you would add the 4 (read), and the 1 (execute), and write in a 5.
+----------------------------------------
+
 FILE SYSTEM COMMANDS
-- s chmod +x file-name.txt : This command allows you to change permissions to a file. The plus sign tells it that you want to add a new permission, and then the letter or letters represent the types of permissions. r is read, w is write, x execute. 
+
+- $ chown username:groupname filename.txt: To change ownership for files and directories
+    chown username filename.txt: This changes ownership for the user, but not for the group.
+    chown groupname filename.txt: This changes ownership for the group, but not for the user.
+    chown -R username:groupname directoryname: This changes the ownership of a directory, recursively. Meaning it changes the ownership for everything within the directory. If you don't add the "-R" it won't change ownership for the stuff that's inside.
+
+- $ chmod 753 filename.txt : Allows you to change permissions for a directory or file +x file-name.txt : This command allows you to change permissions to a file. The plus sign tells it that you want to add a new permission, and then the letter or letters represent the types of permissions. r is read, w is write, x execute.
+    chmod -R 755 directory-name : This would change permissions recursively for not just the directory, but everything in it.
+
+- $ groups : (Allows you to see what groups a certain user account is a member of) You don't add anything after groups. It'll tell you all the groups the current user belongs to. If you want to see the groups other users belong to, simply add their username after the groups command: groups lauren.
+    cat /etc/group : Will show you all the groups inside the server.
+- $ members groupname (NOTE: You have to install the members command if you haven't yet done so. Just like any other dependency: sudo apt-get install members) : Shows you the members of a specific group
+
+- $ ls -l (will list the files and folders within the current directory)
 
 - $ ls -al : This will tell you all the users associated with the target directory, and which permissions they have on the directory, such as read, write, execute, etc.
 
 - $ ls -a : This will show me all files and directories within the target directory, including the hidden ones
 
-- $ cat file-name.txt : Will display the full content of your target file
+- $ cat (Look in the group file. It will show you all the groups in your particular linux server ) file-name.txt : Will display the full content of your target file
+    INSTRUCTIONS: Remember one particular use of cat is allow you to see all of the groups in your server. See the example below to see how to access the group file, which contains all the groups in the server.
+    EXAMPLE: cat /etc/group
 
 - $ nl file-name.txt : Almost like cat, but it adds line numbers to the left.
 
 - $ less file-name.txt : It views the file one page at a time, and as if you were actually opening it yourself. You exit with q. The advantage here is that you can exit out of it, and you won't be left with all that text in the terminal
+  NOTE: You can also use the pipe "|" followed by less if you're already running another command like cat, and it'll execute on top of the original command. See example below.
+  EXAMPLE: cat /etc/group | less
+  EXPLANATION: The example above would execute less of the group file which you're executing with cat.
 
 - $ head file-name.txt : It shows you the first 10 lines of a file.
 
