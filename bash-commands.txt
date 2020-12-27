@@ -1,0 +1,31 @@
+## GENERAL USEFUL COMMANDS
+
+- Clearing The Terminal: :~$ clear
+
+## SHELL RELATED
+
+- SEEING ALL SHELLS AVAILABLE IN YOUR SYSTEM:~$ cat /etc/shells
+
+- KNOWING THE PATH OF THE SHELL:~$ which bash
+--------------------------
+
+## SCRIPTING
+
+- Creating A Script File
+  * 1- Go to the directory where you want to create the file
+  * 2- Create the file (use the .sh extension)
+  * 3- Open the file and add the bash path in the beginning (NOTE: Make sure you add this at the beginning of the line #!): /usr/bin/bash
+  * 4- Input the commands you want the command-line to run when opening the file.
+  * 5- Make sure you change ownership and file permissions to make the file executable.
+  * 6- In order to execute the file add the following command:~$ ./script-name.sh
+
+- NOTE: We're going to write the path for the shell file you're using, for every script that you write for that shell, which in this case is bash.
+---------------------------
+
+## REDIRECTING TO FILE 
+
+
+
+
+
+:~$
