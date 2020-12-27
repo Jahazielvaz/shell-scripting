@@ -58,6 +58,11 @@ CHANGING PERMISSIONS FOR A SPECIFIC FILE OR DIRECTORY: For this you will use chm
 
 FILE SYSTEM COMMANDS
 
+- $ xdg-open directory-name : BEEN LOOKING FOR THIS FOREVER! Just like the "open directory-name" command on mac os. This command allows you to open the target file or directory in the GUI with the default program that runs it.
+    NOTE: The reason why it's xdg has to do with the filesystem you're using in your linux machine. If you choose to use a different filesystem, the command will be different. For example, if your filesystem is Gnome, then the command will be "gnome-open filename.txt".
+    xdg-open filename.txt : Opens file
+    xdg-open . : Opens the current working directory.
+
 - $ chown username:groupname filename.txt: To change ownership for files and directories
     chown username filename.txt: This changes ownership for the user, but not for the group.
     chown groupname filename.txt: This changes ownership for the group, but not for the user.
