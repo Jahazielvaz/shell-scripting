@@ -96,8 +96,6 @@ FILE SYSTEM COMMANDS
 
 - $ tail file-name.txt : It shows you the last 10 lines of a file.
 
-
-
 - $ echo : Used to print text
 
 - $ pwd : Stands for print working directory. This will tell you the directory you're currently on.

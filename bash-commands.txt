@@ -1,4 +1,4 @@
-## GENERAL USEFUL COMMANDS
+ ## GENERAL USEFUL COMMANDS
 
 - Clearing The Terminal: :~$ clear
 
@@ -18,13 +18,25 @@
   * 4- Input the commands you want the command-line to run when opening the file.
   * 5- Make sure you change ownership and file permissions to make the file executable.
   * 6- In order to execute the file add the following command:~$ ./script-name.sh
+  * NOTE: We're going to write the path for the shell file you're using, for every script that you write for that shell, which in this case is bash.
 
-- NOTE: We're going to write the path for the shell file you're using, for every script that you write for that shell, which in this case is bash.
----------------------------
+- Redirecting To A File
+  * Use echo command (Inside your bash file) and the file name that you want to use or create:~$ echo "my message" > fileName.txt
 
-## REDIRECTING TO FILE 
+- Transferring input from the shell to a file
+  * Use the cat command, followed by the file name (Then your terminal will transform into a little notepad to write in):~$ cat > fileName.txt
+  * Press ctrl + D to end the process (Note: doing this will override whatever what previously written on the file.)
+  * Appending Text as opposed to overriding it:~$ cat >> fileName.txt (This will capture spaces as well as new lines of text)
 
+- Commenting
+  * In order to comment in bash, just use the hash:~$ # This is may comment
+  * Multi-line commenting. See command:~$ : 'All my lines'
 
+- Here Doc Delimiter
+  * I'm not too clear on the purpose of this, but I believe it is a form of showing your comments on the output and not just having the comments on the file. I suppose it is output commenting. Just add 2 less than symbols to a cat command followed by the name of the delimiter, then add the comments you want to display, then add the delimiter's name again.
+    See command:~$ cat << delimiterTitle
+                          This is the line I want to output
+                          delimiterTitle
 
 
 
